@@ -1,0 +1,38 @@
+<h2>Alunos List</h2>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nome</th>
+    <th scope="col">País</th>
+    <!-- <th scope="col">Observações</th> -->
+    <th scope="col">Interesses</th>
+    <th scope="col">Number Filter</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let aluno of alunos; index as i" (click)="selecionarAluno(aluno)">
+    <th scope="row">{{ i + 1 }}</th>
+    <!-- <td>
+      <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" class="mr-2" style="width: 20px">
+      {{ aluno.codigoAluno }}
+    </td> -->
+    <td>{{ aluno.nome }}</td>
+    <td>{{ aluno.pais.nome }}</td>
+    <!-- <td>{{ aluno.observacoes }}</td> -->
+    <td>{{ aluno.interesses }}</td>
+    <td>{{ 1000 | number }}</td>
+  </tr>
+  </tbody>
+</table>
+
+
+<!-- <p><i>Escolha um aluno da lista</i></p>
+<ul>
+  <li *ngFor="let aluno of alunos" (click)="selecionarAluno(aluno)">
+    {{aluno.nome}}
+  </li>
+</ul> -->
+
+<!-- <app-hero-detail *ngIf="selectedHero" [hero]="selectedHero"></app-hero-detail> -->
