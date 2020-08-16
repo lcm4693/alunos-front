@@ -1,0 +1,16 @@
+<div class="container">
+  <h2>Aluno Novo</h2>
+  <form [formGroup]="alunoForm">
+    <div class="form-group">
+      <label>Nome do Aluno:</label>
+      <input type="text" formControlName="nome" />
+    </div>
+    <div class="form-group">
+      <label>Pais:</label>
+      <select formControlName="pais">
+        <option *ngFor="let p of paises" [ngValue]="p">{{p.nome}}</option>
+      </select>
+    </div>
+    <button type="button" class="btn btn-success" (click)="onSubmitAluno(alunoForm.value)">Salvar Aluno</button>
+  </form>
+</div>

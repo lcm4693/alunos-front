@@ -1,0 +1,22 @@
+<div class="container">
+  <h2>País Novo</h2>
+  <form [formGroup]="paisForm">
+    <div class="form-group">
+      <label>Nome em Português:</label>
+      <input type="text" formControlName="nomePais" />
+    </div>
+    <div class="form-group">
+      <label>English name:</label>
+      <input type="text" formControlName="nameEnglish" />
+    </div>
+    <div class="form-group">
+      <label>Nom en français:</label>
+      <input type="text" formControlName="nameFrench" />
+    </div>
+    <div class="form-group">
+      <label>Flag:</label>
+      <input type="text" formControlName="flag" />
+    </div>
+    <button type="button" class="btn btn-success" (click)="onSubmitPais(paisForm.value)">Salvar País</button>
+  </form>
+</div>

@@ -3,7 +3,8 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [],
+    "experimentalDecorators": true, /* Enables experimental support for ES7 decorators. */
   },
   "files": [
     "src/main.ts",

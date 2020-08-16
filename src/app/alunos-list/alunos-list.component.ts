@@ -1,6 +1,10 @@
+import { PaisService } from './../service/pais.service';
+import { Pais } from './../domain/pais.domain';
 import { AlunoService } from './../service/aluno.service';
 import { Aluno } from './../domain/aluno.domain';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-alunos-list',
@@ -11,7 +15,10 @@ export class AlunosListComponent implements OnInit {
   alunos: Aluno[];
   alunoSelecionado: Aluno;
 
-  constructor(private service: AlunoService) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private service: AlunoService,
+  ) {}
 
   ngOnInit(): void {
     this.buscarAlunos();
@@ -22,21 +29,24 @@ export class AlunosListComponent implements OnInit {
     this.delete();
   }
 
-  buscarAlunos(): void{
+  buscarAlunos(): void {
     this.service.buscarAlunos().subscribe((alunos) => {
       this.alunos = alunos;
     });
   }
 
-  delete(): void{
+  delete(): void {
     this.service.delete(this.alunoSelecionado._id).subscribe((afetados) => {
-      if(afetados > 0){
+      if (afetados > 0) {
         this.alunos.splice(this.alunos.indexOf(this.alunoSelecionado), 1);
         this.alunoSelecionado = undefined;
-      }else{
+      } else {
         console.log('###### Nada foi removido ####### ');
       }
     });
   }
 
+  getCountryImage(aluno: Aluno): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(aluno.pais.flag);
+  }
 }
