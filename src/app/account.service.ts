@@ -23,7 +23,7 @@ export class AccountService {
     return this.userSubject.value;
   }
 
-  login(username, password) {
+  login(username, password): Observable<User> {
     return this.http
       .post<User>(`${environment.urlBackend}/api/users/authenticate`, {
         username,
@@ -39,30 +39,30 @@ export class AccountService {
       );
   }
 
-  logout() {
+  logout(): void {
     // remove user from local storage and set current user to null
     localStorage.removeItem('user');
     this.userSubject.next(null);
     this.router.navigate(['/'.concat(Constants.LOGIN)]);
   }
 
-  register(user: User) {
-    return this.http.post(`${environment.urlBackend}/users/register`, user);
+  register(user: User): Observable<User> {
+    return this.http.post<User>(`${environment.urlBackend}/users/register`, user);
   }
 
-  getAll() {
+  getAll(): Observable<User[]> {
     return this.http.get<User[]>(`${environment.urlBackend}/users`);
   }
 
-  getById(id: string) {
+  getById(id: string): Observable<User> {
     return this.http.get<User>(`${environment.urlBackend}/users/${id}`);
   }
 
-  update(id, params) {
-    return this.http.put(`${environment.urlBackend}/users/${id}`, params).pipe(
+  update(id, params): Observable<User> {
+    return this.http.put<User>(`${environment.urlBackend}/users/${id}`, params).pipe(
       map((x) => {
         // update stored user if the logged in user updated their own record
-        if (id == this.userValue.id) {
+        if (id === this.userValue.id) {
           // update local storage
           const user = { ...this.userValue, ...params };
           localStorage.setItem('user', JSON.stringify(user));
@@ -75,11 +75,11 @@ export class AccountService {
     );
   }
 
-  delete(id: string) {
-    return this.http.delete(`${environment.urlBackend}/users/${id}`).pipe(
+  delete(id: string): Observable<number> {
+    return this.http.delete<number>(`${environment.urlBackend}/users/${id}`).pipe(
       map((x) => {
         // auto logout if the logged in user deleted their own record
-        if (id == this.userValue.id) {
+        if (id === this.userValue.id) {
           this.logout();
         }
         return x;

@@ -2,6 +2,7 @@ import { Constants } from './infra/constants';
 import { Component } from '@angular/core';
 import { User } from './domain/user';
 import { AccountService } from './account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,27 +14,23 @@ export class AppComponent {
 
   user: User;
 
-  constructor(private accountService: AccountService) {
+  constructor(private router: Router, private accountService: AccountService) {
     this.accountService.user.subscribe((x) => (this.user = x));
   }
 
-  listaAlunos(){
-    console.log('CHAMOU Lista Alunos');
-    return '/'.concat(Constants.ALUNOS_LIST);
+  listaAlunos(): Promise<boolean>{
+    return this.router.navigate(['/'.concat(Constants.ALUNOS_LIST)]);
   }
 
-  novoAluno(){
-    console.log('CHAMOU Novo Aluno');
-    return '/'.concat(Constants.ALUNO_NEW);
+  novoAluno(): Promise<boolean>{
+    return this.router.navigate(['/'.concat(Constants.ALUNO_NEW)]);
   }
 
-  novoPais(){
-    console.log('CHAMOU NovoPais');
-    return '/'.concat(Constants.PAIS_NEW);
+  novoPais(): Promise<boolean>{
+    return this.router.navigate(['/'.concat(Constants.PAIS_NEW)]);
   }
 
   logout(): void {
-    console.log('CHAMOU LOGOUT');
     this.accountService.logout();
   }
 }

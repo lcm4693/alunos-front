@@ -2,7 +2,7 @@ import { Constants } from './../infra/constants';
 import { AccountService } from './../account.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AlertService } from '../alert.service';
 import { User } from '../domain/user';
@@ -21,9 +21,7 @@ export class LoginComponent implements OnInit {
     private accountService: AccountService,
     private alertService: AlertService
   ) {
-    console.log('User Login:', this.accountService.userValue);
     if (this.accountService.userValue) {
-      console.log('User Login=======');
       this.router.navigate(['/'.concat(Constants.ALUNOS_LIST)]);
       return;
     }
@@ -40,11 +38,11 @@ export class LoginComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() {
+  get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
 
     // reset alerts on submit
@@ -65,7 +63,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([Constants.ALUNOS_LIST]);
         },
         (error) => {
-          this.alertService.error(error);
+          this.alertService.error(error.error.message);
           this.loading = false;
         }
       );
