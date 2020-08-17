@@ -1,11 +1,11 @@
-import { Constants } from './infra/constants';
-import { User } from './domain/user';
+import { Constants } from './../infra/constants';
+import { User } from './../domain/user';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from './../environments/environment';
+import { environment } from './../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -19,13 +19,19 @@ export class AccountService {
     this.user = this.userSubject.asObservable();
   }
 
+  public cabecalhoRequests() {
+    return {
+      headers: { Authorization: 'Bearer '.concat(this.userValue.access_token) },
+    };
+  }
+
   public get userValue(): User {
     return this.userSubject.value;
   }
 
-  login(username, password): Observable<User> {
+  login(username: string, password: string): Observable<User> {
     return this.http
-      .post<User>(`${environment.urlBackend}/api/users/authenticate`, {
+      .post<User>(`${environment.urlBackend}/api/login/authenticate`, {
         username,
         password,
       })
@@ -47,7 +53,10 @@ export class AccountService {
   }
 
   register(user: User): Observable<User> {
-    return this.http.post<User>(`${environment.urlBackend}/users/register`, user);
+    return this.http.post<User>(
+      `${environment.urlBackend}/users/register`,
+      user
+    );
   }
 
   getAll(): Observable<User[]> {
@@ -59,31 +68,35 @@ export class AccountService {
   }
 
   update(id, params): Observable<User> {
-    return this.http.put<User>(`${environment.urlBackend}/users/${id}`, params).pipe(
-      map((x) => {
-        // update stored user if the logged in user updated their own record
-        if (id === this.userValue.id) {
-          // update local storage
-          const user = { ...this.userValue, ...params };
-          localStorage.setItem('user', JSON.stringify(user));
+    return this.http
+      .put<User>(`${environment.urlBackend}/users/${id}`, params)
+      .pipe(
+        map((x) => {
+          // update stored user if the logged in user updated their own record
+          if (id === this.userValue.id) {
+            // update local storage
+            const user = { ...this.userValue, ...params };
+            localStorage.setItem('user', JSON.stringify(user));
 
-          // publish updated user to subscribers
-          this.userSubject.next(user);
-        }
-        return x;
-      })
-    );
+            // publish updated user to subscribers
+            this.userSubject.next(user);
+          }
+          return x;
+        })
+      );
   }
 
   delete(id: string): Observable<number> {
-    return this.http.delete<number>(`${environment.urlBackend}/users/${id}`).pipe(
-      map((x) => {
-        // auto logout if the logged in user deleted their own record
-        if (id === this.userValue.id) {
-          this.logout();
-        }
-        return x;
-      })
-    );
+    return this.http
+      .delete<number>(`${environment.urlBackend}/users/${id}`)
+      .pipe(
+        map((x) => {
+          // auto logout if the logged in user deleted their own record
+          if (id === this.userValue.id) {
+            this.logout();
+          }
+          return x;
+        })
+      );
   }
 }

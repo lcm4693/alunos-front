@@ -1,0 +1,20 @@
+<h2>Users List</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Username</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users; index as i" (click)="selecionarUser(user)">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        <label>{{user.firstName}} {{user.lastName}}</label>
+      </td>
+      <td>{{ user.username }}</td>
+    </tr>
+  </tbody>
+</table>

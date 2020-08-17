@@ -1,4 +1,4 @@
-import { AlertService } from './../alert.service';
+import { AlertService } from './../infra/alert.service';
 import { Alert, AlertType } from './../domain/alert';
 import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -57,7 +57,7 @@ export class AlertComponent implements OnInit {
     this.routeSubscription.unsubscribe();
   }
 
-  removeAlert(alert: Alert) {
+  removeAlert(alert: Alert): void {
     // check if already removed to prevent error on auto close
     if (!this.alerts.includes(alert)) {
       return;

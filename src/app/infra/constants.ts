@@ -3,4 +3,6 @@ export class Constants {
   public static readonly ALUNO_NEW = 'aluno-new';
   public static readonly PAIS_NEW = 'pais-new';
   public static readonly LOGIN = 'login';
+  public static readonly USER_NEW = 'user-new';
+  public static readonly USER_LIST = 'user-list';
 }

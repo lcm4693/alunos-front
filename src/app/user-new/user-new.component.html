@@ -1,0 +1,22 @@
+<div class="container">
+  <h2>Usuário Novo</h2>
+  <form [formGroup]="usuarioForm">
+    <div class="form-group">
+      <label>Nome</label>
+      <input type="text" formControlName="firstName" />
+    </div>
+    <div class="form-group">
+      <label>Sobrenome:</label>
+      <input type="text" formControlName="lastName" />
+    </div>
+    <div class="form-group">
+      <label>Username:</label>
+      <input type="text" formControlName="username" />
+    </div>
+    <div class="form-group">
+      <label>Senha:</label>
+      <input type="password" formControlName="password" />
+    </div>
+    <button type="button" class="btn btn-success" (click)="onSubmit(usuarioForm.value)">Salvar Usuário</button>
+  </form>
+</div>

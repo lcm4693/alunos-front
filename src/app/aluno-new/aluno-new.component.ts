@@ -1,4 +1,4 @@
-import { AlertService } from './../alert.service';
+import { AlertService } from './../infra/alert.service';
 import { PaisService } from './../service/pais.service';
 import { Pais } from './../domain/pais.domain';
 import { Aluno } from './../domain/aluno.domain';

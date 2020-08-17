@@ -1,5 +1,5 @@
 import { Constants } from './constants';
-import { AccountService } from './../account.service';
+import { AccountService } from './../infra/account.service';
 import { Injectable } from '@angular/core';
 import {
   Router,

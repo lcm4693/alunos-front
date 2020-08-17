@@ -1,11 +1,10 @@
 import { Constants } from './../infra/constants';
-import { AccountService } from './../account.service';
+import { AccountService } from './../infra/account.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { AlertService } from '../alert.service';
-import { User } from '../domain/user';
+import { AlertService } from './../infra/alert.service';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -21,6 +20,7 @@ export class LoginComponent implements OnInit {
     private accountService: AccountService,
     private alertService: AlertService
   ) {
+    // Previne quando se tenta entrar no login já logado
     if (this.accountService.userValue) {
       this.router.navigate(['/'.concat(Constants.ALUNOS_LIST)]);
       return;
@@ -58,12 +58,11 @@ export class LoginComponent implements OnInit {
       .login(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
-        (data) => {
+        async (data) => {
           this.loading = false;
-          this.router.navigate([Constants.ALUNOS_LIST]);
+          await this.router.navigate([Constants.ALUNOS_LIST]);
         },
         (error) => {
-          this.alertService.error(error.error.message);
           this.loading = false;
         }
       );

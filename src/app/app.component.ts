@@ -1,7 +1,7 @@
 import { Constants } from './infra/constants';
 import { Component } from '@angular/core';
 import { User } from './domain/user';
-import { AccountService } from './account.service';
+import { AccountService } from './infra/account.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -28,6 +28,14 @@ export class AppComponent {
 
   novoPais(): Promise<boolean>{
     return this.router.navigate(['/'.concat(Constants.PAIS_NEW)]);
+  }
+
+  novoUsuario(): Promise<boolean>{
+    return this.router.navigate(['/'.concat(Constants.USER_NEW)]);
+  }
+
+  listaUsers(): Promise<boolean>{
+    return this.router.navigate(['/'.concat(Constants.USER_LIST)]);
   }
 
   logout(): void {

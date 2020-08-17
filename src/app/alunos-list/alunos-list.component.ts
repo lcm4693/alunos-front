@@ -1,10 +1,7 @@
-import { PaisService } from './../service/pais.service';
-import { Pais } from './../domain/pais.domain';
 import { AlunoService } from './../service/aluno.service';
 import { Aluno } from './../domain/aluno.domain';
 import { Component, OnInit, Input } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-alunos-list',
@@ -26,7 +23,7 @@ export class AlunosListComponent implements OnInit {
 
   selecionarAluno(aluno: Aluno): void {
     this.alunoSelecionado = aluno;
-    this.delete();
+    // this.delete();
   }
 
   buscarAlunos(): void {
