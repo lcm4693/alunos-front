@@ -1,3 +1,5 @@
+import { AccountService } from './../infra/account.service';
+import { Constants } from './../infra/constants';
 import { AlertService } from './../infra/alert.service';
 import { PaisService } from './../service/pais.service';
 import { Pais } from './../domain/pais.domain';
@@ -37,12 +39,11 @@ export class AlunoNewComponent implements OnInit {
     });
   }
 
-  onSubmitAluno(aluno: Aluno): void {
-    console.log(aluno);
-    this.service.criar(aluno).subscribe((afetados) => {
+  async onSubmitAluno(aluno: Aluno): Promise<void> {
+    this.service.criar(aluno).subscribe(async (afetados) => {
       this.limparFormularios();
+      await this.router.navigate([Constants.ALUNOS_LIST]);
       this.alertService.success('O aluno ' + aluno.nome + ' foi criado com sucesso');
-      // this.router.navigate(['/alunos-list']);
     });
   }
 

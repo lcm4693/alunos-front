@@ -8,13 +8,21 @@ import { User } from '../domain/user';
   providedIn: 'root',
 })
 export class UserService {
-
   private userURLBase = environment.urlBackend + '/api/users';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  criar(usuario: User): Observable<number> {
-    const numeroAfetados = this.http.post<number>(this.userURLBase + '/criar/', usuario);
+  criar(usuario: User, logado: boolean): Observable<number> {
+    let url = '';
+    if (logado) {
+      url = '/criar/';
+    } else {
+      url = '/criarUser/';
+    }
+    const numeroAfetados = this.http.post<number>(
+      this.userURLBase + url,
+      usuario
+    );
     return numeroAfetados;
   }
 
@@ -23,4 +31,8 @@ export class UserService {
     return users;
   }
 
+  buscarRoles(): Observable<string[]> {
+    const roles = this.http.get<string[]>('/api/auth/roles');
+    return roles;
+  }
 }

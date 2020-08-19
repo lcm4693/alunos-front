@@ -18,23 +18,33 @@ export class AppComponent {
     this.accountService.user.subscribe((x) => (this.user = x));
   }
 
-  listaAlunos(): Promise<boolean>{
+  verificarUsuarioPossuiRole(roles: string[]): boolean {
+    for (const role of roles) {
+      if (this.user.roles.includes(role)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  listaAlunos(): Promise<boolean> {
     return this.router.navigate(['/'.concat(Constants.ALUNOS_LIST)]);
   }
 
-  novoAluno(): Promise<boolean>{
+  novoAluno(): Promise<boolean> {
     return this.router.navigate(['/'.concat(Constants.ALUNO_NEW)]);
   }
 
-  novoPais(): Promise<boolean>{
+  novoPais(): Promise<boolean> {
     return this.router.navigate(['/'.concat(Constants.PAIS_NEW)]);
   }
 
-  novoUsuario(): Promise<boolean>{
+  novoUsuario(): Promise<boolean> {
     return this.router.navigate(['/'.concat(Constants.USER_NEW)]);
   }
 
-  listaUsers(): Promise<boolean>{
+  listaUsers(): Promise<boolean> {
     return this.router.navigate(['/'.concat(Constants.USER_LIST)]);
   }
 

@@ -67,4 +67,9 @@ export class LoginComponent implements OnInit {
         }
       );
   }
+
+  novoUsuario(): Promise<boolean>{
+    return this.router.navigate(['/'.concat(Constants.USER_NEW)]);
+  }
+
 }

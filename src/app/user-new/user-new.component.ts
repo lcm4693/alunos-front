@@ -1,3 +1,4 @@
+import { AccountService } from './../infra/account.service';
 import { Constants } from './../infra/constants';
 import { UserService } from './../service/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,8 +13,9 @@ import { User } from '../domain/user';
 })
 export class UserNewComponent implements OnInit {
   usuarioForm;
-
+  roles: string[];
   constructor(
+    private accountService: AccountService,
     private service: UserService,
     private formBuilder: FormBuilder,
     private router: Router
@@ -21,6 +23,11 @@ export class UserNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.limparFormularios();
+    if (this.accountService.userValue) {
+      this.service.buscarRoles().subscribe((data) => {
+        this.roles = data;
+      });
+    }
   }
 
   limparFormularios(): void {
@@ -29,12 +36,13 @@ export class UserNewComponent implements OnInit {
     usuario.lastName = '';
     usuario.username = '';
     usuario.password = '';
-
+    usuario.roles = [''];
     this.usuarioForm = this.formBuilder.group(usuario);
   }
 
   onSubmit(usuario: User): void {
-    this.service.criar(usuario).subscribe((afetados) => {
+    const logado = this.accountService.userValue ? true : false;
+    this.service.criar(usuario, logado).subscribe((afetados) => {
       this.limparFormularios();
       this.router.navigate(['/'.concat(Constants.ALUNOS_LIST)]);
     });

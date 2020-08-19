@@ -1,3 +1,4 @@
+import { User } from './../domain/user';
 import { AccountService } from './../infra/account.service';
 import { Aluno } from './../domain/aluno.domain';
 import { Injectable } from '@angular/core';
@@ -14,11 +15,14 @@ export class AlunoService {
   private alunoURLBase = environment.urlBackend + '/api/aluno';
 
   buscarAlunos(): Observable<Aluno[]> {
-    const alunos = this.http.get<Aluno[]>(this.alunoURLBase + '/alunos');
+    const professor = this.accountService.userValue;
+    const alunos = this.http.get<Aluno[]>(this.alunoURLBase + '/alunos/');
     return alunos;
   }
 
   criar(aluno: Aluno): Observable<number> {
+    const professor = this.accountService.userValue;
+    aluno.professor = professor;
     const numeroAfetados = this.http.post<number>(this.alunoURLBase + '/criar/', aluno);
     return numeroAfetados;
   }

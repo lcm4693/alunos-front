@@ -37,7 +37,6 @@ const appRoutes: Routes = [
   {
     path: Constants.USER_NEW,
     component: UserNewComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: Constants.USER_LIST,

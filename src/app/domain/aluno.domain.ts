@@ -1,3 +1,4 @@
+import { User } from './user';
 import { Pais } from './pais.domain';
 
 export class Aluno {
@@ -7,4 +8,5 @@ export class Aluno {
   public pais: Pais;
   public observacoes: string[];
   public interesses: string[];
+  public professor: User;
 }

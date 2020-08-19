@@ -31,7 +31,7 @@ export class AccountService {
 
   login(username: string, password: string): Observable<User> {
     return this.http
-      .post<User>(`${environment.urlBackend}/api/login/authenticate`, {
+      .post<User>(`${environment.urlBackend}/api/auth/login/authenticate`, {
         username,
         password,
       })
