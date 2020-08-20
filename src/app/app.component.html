@@ -1,5 +1,6 @@
 <nav *ngIf="user">
   <a class="button" style="cursor: pointer" *ngIf="verificarUsuarioPossuiRole(['PROFESSOR'])" (click)="listaAlunos()">Lista de Alunos | </a>
+  <a class="button" style="cursor: pointer" *ngIf="verificarUsuarioPossuiRole(['PROFESSOR', 'ALUNO'])" (click)="listaAulas()">Lista de Aulas | </a>
   <a class="button" style="cursor: pointer" *ngIf="verificarUsuarioPossuiRole(['PROFESSOR'])" (click)="novoAluno()">Criar Aluno | </a>
   <a class="button" style="cursor: pointer" *ngIf="verificarUsuarioPossuiRole(['ADMIN'])" (click)="novoPais()">Criar País | </a>
   <a class="button" style="cursor: pointer" *ngIf="verificarUsuarioPossuiRole(['ADMIN'])" (click)="novoUsuario()">Criar Usuário | </a>

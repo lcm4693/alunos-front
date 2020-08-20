@@ -19,7 +19,7 @@ export class AccountService {
     this.user = this.userSubject.asObservable();
   }
 
-  public cabecalhoRequests() {
+  public cabecalhoRequests(): {} {
     return {
       headers: { Authorization: 'Bearer '.concat(this.userValue.access_token) },
     };
@@ -27,6 +27,18 @@ export class AccountService {
 
   public get userValue(): User {
     return this.userSubject.value;
+  }
+
+  public isAdmin(): boolean {
+    return this.userSubject.value.roles.includes('ADMIN');
+  }
+
+  public isProfessor(): boolean {
+    return this.userSubject.value.roles.includes('PROFESSOR');
+  }
+
+  public isAluno(): boolean {
+    return this.userSubject.value.roles.includes('ALUNO');
   }
 
   login(username: string, password: string): Observable<User> {

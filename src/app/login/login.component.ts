@@ -2,7 +2,12 @@ import { Constants } from './../infra/constants';
 import { AccountService } from './../infra/account.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AlertService } from './../infra/alert.service';
 
@@ -60,7 +65,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         async (data) => {
           this.loading = false;
-          await this.router.navigate([Constants.ALUNOS_LIST]);
+          this.navegarPaginaPadrao();
         },
         (error) => {
           this.loading = false;
@@ -68,8 +73,21 @@ export class LoginComponent implements OnInit {
       );
   }
 
-  novoUsuario(): Promise<boolean>{
-    return this.router.navigate(['/'.concat(Constants.USER_NEW)]);
+  async navegarPaginaPadrao(): Promise<void> {
+    let pagina = Constants.ALUNOS_LIST;
+
+    if (this.accountService.isAdmin()) {
+      pagina = Constants.USER_LIST;
+    } else if (this.accountService.isProfessor()) {
+      pagina = Constants.ALUNOS_LIST;
+    } else if (this.accountService.isProfessor()) {
+      pagina = Constants.ALUNOS_LIST;
+    }
+
+    await this.router.navigate([pagina]);
   }
 
+  novoUsuario(): Promise<boolean> {
+    return this.router.navigate(['/'.concat(Constants.USER_NEW)]);
+  }
 }

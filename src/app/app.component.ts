@@ -32,6 +32,10 @@ export class AppComponent {
     return this.router.navigate(['/'.concat(Constants.ALUNOS_LIST)]);
   }
 
+  listaAulas(): Promise<boolean> {
+    return this.router.navigate(['/'.concat(Constants.AULAS_LIST)]);
+  }
+
   novoAluno(): Promise<boolean> {
     return this.router.navigate(['/'.concat(Constants.ALUNO_NEW)]);
   }

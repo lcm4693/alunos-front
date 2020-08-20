@@ -5,4 +5,5 @@ export class Constants {
   public static readonly LOGIN = 'login';
   public static readonly USER_NEW = 'user-new';
   public static readonly USER_LIST = 'user-list';
+  public static readonly AULAS_LIST = 'aulas-list';
 }

@@ -1,0 +1,32 @@
+<h2>Aulas List</h2>
+
+<table class="table table-sm table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Título</th>
+      <th scope="col">Local</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Aluno</th>
+      <th scope="col">Professor</th>
+      <th scope="col">Contatos</th>
+      <!-- <th scope="col">Endereço da lição</th> -->
+      <th scope="col">Horário</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let aula of aulas; index as i" (click)="selecionarAula(aula)">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        <label>{{ aula.titulo }}</label>
+      </td>
+      <td>{{ aula.local }}</td>
+      <td>{{ aula.nome }}</td>
+      <td>{{ aula.aluno }}</td>
+      <td>{{ aula.professor }}</td>
+      <td>{{ aula.contatos }}</td>
+      <!-- <td>{{ aula.endereco }}</td> -->
+      <td>{{ aula.dataInicio}} {{aula.horaInicio}} - {{aula.horaFim}}</td>
+    </tr>
+  </tbody>
+</table>

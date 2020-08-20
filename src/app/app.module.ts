@@ -17,6 +17,7 @@ import { AlertComponent } from './alert/alert.component';
 import { LoginComponent } from './login/login.component';
 import { UserNewComponent } from './user-new/user-new.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { AulaListComponent } from './aula-list/aula-list.component';
 
 const appRoutes: Routes = [
   {
@@ -43,6 +44,11 @@ const appRoutes: Routes = [
     component: UserListComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: Constants.AULAS_LIST,
+    component: AulaListComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'login', component: LoginComponent },
   // { path: 'register', component: RegisterComponent },
   {
@@ -63,6 +69,7 @@ const appRoutes: Routes = [
     LoginComponent,
     UserNewComponent,
     UserListComponent,
+    AulaListComponent,
   ],
   imports: [
     BrowserModule,
