@@ -43,7 +43,9 @@ export class AlunoNewComponent implements OnInit {
     this.service.criar(aluno).subscribe(async (afetados) => {
       this.limparFormularios();
       await this.router.navigate([Constants.ALUNOS_LIST]);
-      this.alertService.success('O aluno ' + aluno.nome + ' foi criado com sucesso');
+      this.alertService.success(
+        'O aluno ' + aluno.nome + ' foi criado com sucesso'
+      );
     });
   }
 

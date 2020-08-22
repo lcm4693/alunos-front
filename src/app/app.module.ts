@@ -18,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 import { UserNewComponent } from './user-new/user-new.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { AulaListComponent } from './aula-list/aula-list.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 const appRoutes: Routes = [
   {
@@ -38,6 +39,10 @@ const appRoutes: Routes = [
   {
     path: Constants.USER_NEW,
     component: UserNewComponent,
+  },
+  {
+    path: Constants.USER_EDIT,
+    component: UserEditComponent,
   },
   {
     path: Constants.USER_LIST,
@@ -70,6 +75,7 @@ const appRoutes: Routes = [
     UserNewComponent,
     UserListComponent,
     AulaListComponent,
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,

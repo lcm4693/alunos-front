@@ -6,6 +6,8 @@
       <th scope="col">#</th>
       <th scope="col">Nome</th>
       <th scope="col">Username</th>
+      <th scope="col">Locale</th>
+      <th scope="col">24 horas</th>
       <th scope="col">Roles</th>
     </tr>
   </thead>
@@ -16,6 +18,8 @@
         <label>{{user.firstName}} {{user.lastName}}</label>
       </td>
       <td>{{ user.username }}</td>
+      <td>{{ user.locale.timezone }}</td>
+      <td>{{ user.padrao24 ? 'Sim' : 'Não' }}</td>
       <td>{{ user.roles }}</td>
     </tr>
   </tbody>

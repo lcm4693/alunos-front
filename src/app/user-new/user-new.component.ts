@@ -36,6 +36,7 @@ export class UserNewComponent implements OnInit {
     usuario.lastName = '';
     usuario.username = '';
     usuario.password = '';
+    usuario.padrao24 = true;
     usuario.roles = [''];
     this.usuarioForm = this.formBuilder.group(usuario);
   }

@@ -48,6 +48,10 @@ export class AppComponent {
     return this.router.navigate(['/'.concat(Constants.USER_NEW)]);
   }
 
+  editarUsuario(): Promise<boolean> {
+    return this.router.navigate(['/'.concat(Constants.USER_EDIT)]);
+  }
+
   listaUsers(): Promise<boolean> {
     return this.router.navigate(['/'.concat(Constants.USER_LIST)]);
   }

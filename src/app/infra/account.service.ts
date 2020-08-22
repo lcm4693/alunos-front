@@ -1,3 +1,4 @@
+import { UserService } from './../service/user.service';
 import { Constants } from './../infra/constants';
 import { User } from './../domain/user';
 import { Injectable } from '@angular/core';
@@ -12,7 +13,7 @@ export class AccountService {
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private userService: UserService, private router: Router, private http: HttpClient) {
     this.userSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('user'))
     );
@@ -79,15 +80,17 @@ export class AccountService {
     return this.http.get<User>(`${environment.urlBackend}/users/${id}`);
   }
 
-  update(id, params): Observable<User> {
-    return this.http
-      .put<User>(`${environment.urlBackend}/users/${id}`, params)
+  update(username: string, usuario: User): Observable<User> {
+    return this.userService.atualizar(username, usuario)
       .pipe(
         map((x) => {
           // update stored user if the logged in user updated their own record
-          if (id === this.userValue.id) {
+          if (username === x.username) {
             // update local storage
-            const user = { ...this.userValue, ...params };
+            // const user = { ...this.userValue, ...params };
+            const access = this.userValue.access_token;
+            const user = x;
+            user.access_token = access;
             localStorage.setItem('user', JSON.stringify(user));
 
             // publish updated user to subscribers
